@@ -1,6 +1,6 @@
 {
   "name": "react-redux-mirror",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A Higher Order Component using react-redux to temporary mirror parts of a Redux store",
   "main": "dist/react-redux-mirror.js",
   "module": "dist/react-redux-mirror.es.js",
