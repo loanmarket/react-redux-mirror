@@ -18,7 +18,9 @@ export default {
         'node_modules/react/**',
         'node_modules/lodash.pick/**',
         'node_modules/lodash.mapvalues/**',
-      ]
+        'node_modules/lodash.isstring/**',
+        'node_modules/invariant/**',
+      ],
     }),
     babel({
       exclude: 'node_modules/**',
