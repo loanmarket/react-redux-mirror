@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import reduceReducers from 'reduce-reducers'
+import reduceReducers from 'reduce-reducers';
 import update from 'immutability-helper';
 import mapValues from 'lodash.mapvalues';
 import { mirrorReducer, reflectionReducer } from './reducers';
@@ -25,7 +25,7 @@ export default class ReduxMirror {
   reducers() {
     return {
       ...this.mirrored,
-      reflections: this.reflectionsReducer()
+      reflections: this.reflectionsReducer(),
     };
   }
 

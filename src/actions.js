@@ -1,4 +1,5 @@
 import { createAction } from 'redux-actions';
+import { CREATE_REFLECTION, CLEAR_REFLECTION, UPDATE_MIRROR } from './actions';
 
 export const createReflection = createAction(CREATE_REFLECTION);
 export const clearReflection = createAction(CLEAR_REFLECTION);
