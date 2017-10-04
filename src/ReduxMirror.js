@@ -7,19 +7,18 @@ import { mirrorReducer, reflectionReducer } from './reducers';
 export default class ReduxMirror {
   constructor(reducersToMirror) {
     this.originalReducers = {};
-    this.mirrored = mapValues(reducersToMirror, this.mirrorReducer);
-  }
-
-  mirrorReducer = (reducer, name) => {
-    this.originalReducers[name] = reducer;
-    const reducerWithMirrorActions = reduceReducers(reducer, mirrorReducer);
-    return (state, action) => {
-      if (state === undefined) return reducerWithMirrorActions(state, action);
-      if (action && action.reflection) {
-        return state;
-      }
-      return reducerWithMirrorActions(state, action);
+    const mirror = (reducer, name) => {
+      this.originalReducers[name] = reducer;
+      const reducerWithMirrorActions = reduceReducers(reducer, mirrorReducer);
+      return (state, action) => {
+        if (state === undefined) return reducerWithMirrorActions(state, action);
+        if (action && action.reflection) {
+          return state;
+        }
+        return reducerWithMirrorActions(state, action);
+      };
     };
+    this.mirrored = mapValues(reducersToMirror, mirror);
   }
 
   reducers() {
@@ -27,6 +26,10 @@ export default class ReduxMirror {
       ...this.mirrored,
       reflections: this.reflectionsReducer(),
     };
+  }
+
+  combinedReducers() {
+    return combineReducers(this.reducers());
   }
 
   reflectionsReducer() {
