@@ -15,7 +15,7 @@ export default (options) => {
   invariant(
     options &&
     (options.subset === undefined ||
-    (Array.isArray(options.subset) && options.length > 0 && options.subset.every(isString))),
+    (Array.isArray(options.subset) && options.subset.length > 0 && options.subset.every(isString))),
     'connectToMirror expects subset to be undefined or an array of strings',
   );
   // Could do addition check here to ensure that mirror is actually mirrored in ReduxMirror
