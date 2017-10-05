@@ -1,4 +1,3 @@
-import 'babel-polyfill';
 import Mirror from './ReduxMirror';
 import connect, { reduxMirrorPropTypes as propTypes } from './connectToMirror';
 
