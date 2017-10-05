@@ -6,7 +6,7 @@
   "module": "dist/react-redux-mirror.es.js",
   "scripts": {
     "prepublish": "npm run build",
-    "build": "rollup --config rollup.config.js",
+    "build": "env NODE_ENV=production rollup --config rollup.config.js",
     "lint": "eslint src/**",
     "test": "env NODE_ENV=test mocha --require babel-polyfill -r jsdom-global/register --compilers js:babel-register test/*.test.js",
     "test-tdd": "env NODE_ENV=test mocha --watch --require babel-polyfill -r jsdom-global/register --compilers js:babel-register test/*.test.js"
