@@ -10,12 +10,12 @@ export const reduxMirrorPropTypes = {
   sync: PropTypes.func.isRequired,
 };
 
-export default (options, mapStateToProps, mapDispatchToProps, mergeProps) => (WrappedComponent) => {
-  invariant(options && options.mirror, 'connectToMirror require options.mirror to be set to valid reducer name');
+export default (options) => {
+  invariant(options && options.mirror, 'connectToMirror requires options.mirror to be set to valid reducer name');
   invariant(
     options &&
     (options.subset === undefined ||
-    (Array.isArray(options.subset) && options.subset.every(isString))),
+    (Array.isArray(options.subset) && options.length > 0 && options.subset.every(isString))),
     'connectToMirror expects subset to be undefined or an array of strings',
   );
   // Could do addition check here to ensure that mirror is actually mirrored in ReduxMirror
@@ -29,48 +29,53 @@ export default (options, mapStateToProps, mapDispatchToProps, mergeProps) => (Wr
     return options.subset ? pick(content, options.subset) : content;
   };
 
-  const mapReflectedState = (state, ownProps) => {
-    const mapped = mapStateToProps({
-      [targetMirror]: state.reflections[targetMirror][reflectionId],
-    }, ownProps);
-    return mapped;
-  };
-
-  const dispatchToReflection = dispatch => (action) => {
-    action.reflection = reflectionId;
-    dispatch(action);
-  };
-
-  const mappedDispatch = dispatch => mapDispatchToProps(dispatchToReflection(dispatch));
-  const ConnectedComponent = connect(mapReflectedState, mappedDispatch, mergeProps)(WrappedComponent);
-
-  class Mirror extends Component {
-    static contextTypes = {
-      store: PropTypes.object.isRequired,
+  return (mapStateToProps, mapDispatchToProps, mergeProps) => {
+    const mapReflectedState = (state, ownProps) => {
+      const mapped = mapStateToProps({
+        [targetMirror]: state.reflections[targetMirror][reflectionId],
+      }, ownProps);
+      return mapped;
     };
 
-    sync = () => {
-      const { store: { getState, dispatch } } = this.context;
-      dispatch(updateMirror(getState().reflections[targetMirror][reflectionId]));
+    const dispatchToReflection = dispatch => (action) => {
+      action.reflection = reflectionId;
+      dispatch(action);
     };
 
-    componentWillMount() {
-      const { store: { getState, dispatch } } = this.context;
-      dispatch(createReflection({
-        id: reflectionId,
-        state: filterReflectedState(getState()),
-      }));
-    }
+    const mappedDispatch = dispatch => mapDispatchToProps(dispatchToReflection(dispatch));
+    const connectFn = connect(mapReflectedState, mappedDispatch, mergeProps);
 
-    componentWillUnmount() {
-      const { store: { dispatch } } = this.context;
-      dispatch(clearReflection(reflectionId));
-    }
+    return (WrappedComponent) => {
+      const ConnectedComponent = connectFn(WrappedComponent);
 
-    render() {
-      return <ConnectedComponent {...this.props} sync={this.sync} />;
-    }
-  }
+      class Mirror extends Component {
+        static contextTypes = {
+          store: PropTypes.object.isRequired,
+        };
 
-  return Mirror;
+        sync = () => {
+          const { store: { getState, dispatch } } = this.context;
+          dispatch(updateMirror(getState().reflections[targetMirror][reflectionId]));
+        };
+
+        componentWillMount() {
+          const { store: { getState, dispatch } } = this.context;
+          dispatch(createReflection({
+            id: reflectionId,
+            state: filterReflectedState(getState()),
+          }));
+        }
+
+        componentWillUnmount() {
+          const { store: { dispatch } } = this.context;
+          dispatch(clearReflection(reflectionId));
+        }
+
+        render() {
+          return <ConnectedComponent {...this.props} sync={this.sync} />;
+        }
+      }
+      return Mirror;
+    };
+  };
 };
