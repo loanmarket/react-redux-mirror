@@ -8,8 +8,8 @@
     "prepublish": "npm run build",
     "build": "env NODE_ENV=production rollup --config rollup.config.js",
     "lint": "eslint src/**",
-    "test": "env NODE_ENV=test mocha --require babel-polyfill -r jsdom-global/register --compilers js:babel-register test/*.test.js",
-    "test-tdd": "env NODE_ENV=test mocha --watch --require babel-polyfill -r jsdom-global/register --compilers js:babel-register test/*.test.js"
+    "test": "env NODE_ENV=test mocha -r jsdom-global/register --compilers js:babel-register test/*.test.js",
+    "test-tdd": "env NODE_ENV=test mocha --watch -r jsdom-global/register --compilers js:babel-register test/*.test.js"
   },
   "repository": {
     "type": "git",

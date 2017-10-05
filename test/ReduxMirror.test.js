@@ -1,4 +1,3 @@
-import 'babel-polyfill';
 import chai from 'chai';
 import ReduxMirror from '../src/ReduxMirror';
 import {
