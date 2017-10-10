@@ -1,5 +1,11 @@
 language: node_js
 node_js:
-  - "6"
-script: "npm run test"
-# after_script: "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+- '6'
+script: npm run test
+deploy:
+  provider: npm
+  email: benjamin.mfoster@gmail.com
+  on:
+    branch: master
+  api_key:
+    secure: UXTKoVDGZoaqeImVS84qqRlU2ktIou0g7oXnqkWJ+E5bEpk7CGTpD9VNOJmDbzgzGRINW5S/evWzcx8D2StQFkO7rW4JMXTORoZEOINWJceNgWu8SxugEOMtpr4qPl1CX7AuRLwmjnuKLd5lCEvrOCTgzGzMbRqH/eVQ7JrV/Yy9B6UIS24eJ4SZ9vrmTJMlZhgI8CLHaS3uEf0XjimEU8BkewxwtiTPlULTbnbfRE7rnZGS/J6eRfnmTpEoMWAoPleee8qLoF/DrJBlbZYav8M3VNqPdOeyG/eWqAjFUYmH9aSYRxRfUyggd8eCVknpbyTj5SU4QA7kehwxuGnZ/1hosUYe7slQnN3zZozcK0dT+DA2HvWBJZ6ksio/UAZTFL6NduTbQmFTOsgsIOrtGOlvzblecPWA4hLU5fX/qImYez6bQoEac042yaZyVX/bxi9BPEB0vl8AQZ2HC7IqrAh9ntMJJDdKyGbNPgmrLNSiobwU24zAxPvbZkjUJsoa99y3lWjd8lNMuHWuswfOzI8/PgEEkfktnwVeoRgt5GB8/Uw6SWig2h0VQ8L+3qVMWi1joMxLwojaUaPPBjzHhwF3vyhbJaZ36QfFnUwfdU5dLm/0DmLVEujyg/qdBQiSzwPht3O3cIFQmNXt2D0GE9NBzaUlruRyBddKC7daWtQ=
