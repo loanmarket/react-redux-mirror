@@ -55,7 +55,7 @@
     "mocha": "^5.0.0",
     "react-dom": "^16.0.0",
     "react-test-renderer": "^16.0.0",
-    "reduce-reducers": "^0.1.2",
+    "reduce-reducers": "^0.4.3",
     "redux-mock-store": "^1.3.0",
     "rollup": "^0.54.1",
     "rollup-plugin-babel": "^3.0.2",
