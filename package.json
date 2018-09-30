@@ -47,7 +47,7 @@
     "eslint-plugin-mocha": "^4.11.0",
     "eslint-plugin-react": "^7.4.0",
     "invariant": "^2.2.2",
-    "jsdom": "^11.3.0",
+    "jsdom": "^12.1.0",
     "jsdom-global": "^3.0.2",
     "lodash.isstring": "^4.0.1",
     "lodash.mapvalues": "^4.6.0",
