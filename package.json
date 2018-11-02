@@ -70,6 +70,6 @@
     "react": "^16.0.0",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
-    "redux-actions": "^2.2.1"
+    "redux-actions": "2.6.3"
   }
 }
